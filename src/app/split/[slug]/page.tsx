@@ -52,11 +52,11 @@ export default async function ShareView({ params }: { params: { slug: string } }
                     </CardHeader>
                     <CardContent className="space-y-4">
                         {/* We will render a server-side simplified list here for the read-only view */}
-                        {session.roommates.map((rm) => {
+                        {session.roommates.map((rm: any) => {
                             // A full server side calc would be complex to duplicate entirely here in a single file without refactoring the algo to a shared pure function.
                             // For this demonstration, we'll list the assignments. 
                             // In production, the `SplitResult` should be saved to the DB during the POST /api/split to avoid recalculating.
-                            const assignedRoom = session.rooms.find(r => r.id === rm.roomId);
+                            const assignedRoom = session.rooms.find((r: any) => r.id === rm.roomId);
                             return (
                                 <div key={rm.id} className="bg-black/40 p-5 rounded-xl border border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
                                     <div className="flex-1">
