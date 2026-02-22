@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+  <img src="./src/app/icon.svg" width="120" height="120" alt="Rent Split Optimizer Logo" />
+  <h1>Rent Split Optimizer</h1>
+  <p><strong>A mathematically proven, beautiful way to split rent fairly amongst roommates.</strong></p>
 
-## Getting Started
+  [![Next.js](https://img.shields.io/badge/Next.js-14+-black?style=for-the-badge&logo=nextdotjs)](https://nextjs.org/)
+  [![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?style=for-the-badge&logo=prisma)](https://prisma.io/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
+  [![Zustand](https://img.shields.io/badge/Zustand-State-black?style=for-the-badge)](https://github.com/pmndrs/zustand)
+</div>
 
-First, run the development server:
+---
+
+## 🚀 Overview
+
+The **Rent Split Optimizer** takes the headache out of deciding who pays what when moving into a new apartment. 
+
+Instead of arguing over the master bedroom, you input the exact sizes of every room, check off who has a private bathroom or a balcony, and let deterministic mathematics figure out the exactly perfect split down to the cent. Everyone gets an undeniable, logically sound breakdown of their share of the rent and utilities.
+
+## ✨ Features
+
+- **Dynamic Rent Algorithm**: Weighs room sizes, private bathrooms, balconies, and common area usage to allocate costs smoothly.
+- **Premium Modifiers Engine**: Lock advanced visual scoring algorithms (Sunlight, View, Furnishings) behind a digital unlocking gate for premium users.
+- **Flawless Mathematics**: Utilizes Banker's Rounding to guarantee the final allocated split permanently exactly matches your target budget.
+- **Live Visualizations**: Adjust a room size and watch your share instantly resize via responsive Recharts graphs.
+- **Digital Receipts**: Once configured, lock it down and generate a unique, shareable URL to act as an uneditable "Treaty" in your group chat.
+
+## 🛠️ Quick Start
 
 ```bash
+# 1. Clone the repository
+git clone https://github.com/ashinshanly/splitrent.git
+cd splitrent
+
+# 2. Install dependencies
+npm install
+
+# 3. Apply the database schema
+npx prisma db push
+
+# 4. Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000` to start calculating.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏗️ Architecture Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework**: Next.js (App Router)
+- **Styling**: Tailwind CSS + Shadcn UI + Framer Motion
+- **State Management**: Zustand
+- **Database**: SQLite (via Prisma ORM)
+- **Charts**: Recharts
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+<div align="center">
+  <sub>Built with sleek glassmorphism and modern web standards.</sub>
+</div>

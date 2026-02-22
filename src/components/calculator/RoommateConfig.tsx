@@ -27,7 +27,10 @@ export function RoommateConfig() {
     return (
         <div className="space-y-4">
             <div className="flex justify-between items-center">
-                <h2 className="text-xl font-semibold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">Roommates</h2>
+                <div>
+                    <h2 className="text-xl font-semibold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">Roommates</h2>
+                    <p className="text-xs text-slate-400 mt-1">Add friends and assign them to specific rooms below.</p>
+                </div>
                 <Button onClick={createNewRoommate} size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white">
                     <Plus className="w-4 h-4 mr-2" /> Add Roommate
                 </Button>

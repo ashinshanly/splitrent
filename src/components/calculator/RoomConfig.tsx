@@ -40,7 +40,10 @@ export function RoomConfig() {
     return (
         <div className="space-y-4">
             <div className="flex justify-between items-center">
-                <h2 className="text-xl font-semibold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Rooms</h2>
+                <div>
+                    <h2 className="text-xl font-semibold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Rooms</h2>
+                    <p className="text-xs text-slate-400 mt-1">Define the available rooms & their unique amenities.</p>
+                </div>
                 <Button onClick={createNewRoom} size="sm" className="bg-indigo-600 hover:bg-indigo-700 text-white">
                     <Plus className="w-4 h-4 mr-2" /> Add Room
                 </Button>

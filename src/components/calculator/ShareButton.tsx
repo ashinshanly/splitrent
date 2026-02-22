@@ -4,7 +4,7 @@ import { useSplitStore } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 import { Share2, Lock } from "lucide-react";
 import { useState } from "react";
-// Assuming we add a hooks/use-toast or similar later, using simple alert for now
+import { toast } from "sonner";
 // To keep the code clean inline:
 
 export function ShareButton() {
@@ -14,7 +14,7 @@ export function ShareButton() {
 
     const handleAction = async () => {
         if (store.results.length === 0) {
-            alert("Please configure rooms and roommates to calculate a split first.");
+            toast.error("Please configure rooms and roommates to calculate a split first.");
             return;
         }
 
@@ -48,7 +48,7 @@ export function ShareButton() {
             const data = await response.json();
 
             // Simulate Payment flow opening
-            alert(`Split saved! Proceeding to Payment...\n\nSession ID: ${data.id}\nShare slug: ${data.shareSlug}\n\nIn a real app, this would open Razorpay.`);
+            toast.loading("Processing payment...", { id: "payment" });
 
             // Mock payment success
             const paymentResponse = await fetch('/api/payment', {
@@ -61,12 +61,23 @@ export function ShareButton() {
                 setHasUnlockedPremium(true);
                 // Trigger a sync recalculation now that it's unlocked so they see values apply before redirecting
                 store.calculateSplit();
-                alert(`Payment successful! Premium Modifiers unlocked.\n\nYour permanent digital receipt is: ${window.location.origin}/split/${data.shareSlug}`);
+                toast.success("Payment successful! Premium Modifiers unlocked.", { id: "payment" });
+                toast.info("Your permanent digital receipt has been generated.", {
+                    description: `${window.location.origin}/split/${data.shareSlug}`,
+                    duration: 10000,
+                    action: {
+                        label: "Copy Link",
+                        onClick: () => {
+                            navigator.clipboard.writeText(`${window.location.origin}/split/${data.shareSlug}`);
+                            toast.success("Link copied to clipboard!");
+                        }
+                    }
+                });
             }
 
         } catch (error) {
             console.error(error);
-            alert("Error generating shareable link.");
+            toast.error("Error generating shareable link.", { id: "payment" });
         } finally {
             setLoading(false);
         }
@@ -78,8 +89,8 @@ export function ShareButton() {
             disabled={loading || store.results.length === 0}
             size="lg"
             className={`w-full sm:w-auto text-white shadow-lg border-none group relative overflow-hidden ${hasUnlockedPremium
-                    ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 shadow-emerald-500/25"
-                    : "bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 shadow-indigo-500/25"
+                ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 shadow-emerald-500/25"
+                : "bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 shadow-indigo-500/25"
                 }`}
         >
             <div className="absolute inset-0 bg-white/20 group-hover:translate-x-full transition-transform duration-500 ease-in-out -translate-x-full z-0" />
