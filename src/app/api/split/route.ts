@@ -43,7 +43,7 @@ export async function POST(req: Request) {
         const roommateCreations = roommates.map((rm: any) => {
             // Find the corresponding created room based on a client-side temporary ID or name match
             // For simplicity, assuming the frontend passes the index or name to map back
-            const assignedRoom = session.rooms.find(r => r.roomName === rm.roomName);
+            const assignedRoom = session.rooms.find((r: any) => r.roomName === rm.roomName);
             return db.roommate.create({
                 data: {
                     name: rm.name,
