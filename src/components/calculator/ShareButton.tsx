@@ -10,8 +10,9 @@ import { useState } from "react";
 export function ShareButton() {
     const [loading, setLoading] = useState(false);
     const store = useSplitStore();
+    const { hasUnlockedPremium, setHasUnlockedPremium } = store;
 
-    const handleShare = async () => {
+    const handleAction = async () => {
         if (store.results.length === 0) {
             alert("Please configure rooms and roommates to calculate a split first.");
             return;
@@ -57,7 +58,10 @@ export function ShareButton() {
             });
 
             if (paymentResponse.ok) {
-                alert(`Payment successful! Your shareable link is: ${window.location.origin}/split/${data.shareSlug}`);
+                setHasUnlockedPremium(true);
+                // Trigger a sync recalculation now that it's unlocked so they see values apply before redirecting
+                store.calculateSplit();
+                alert(`Payment successful! Premium Modifiers unlocked.\n\nYour permanent digital receipt is: ${window.location.origin}/split/${data.shareSlug}`);
             }
 
         } catch (error) {
@@ -70,19 +74,27 @@ export function ShareButton() {
 
     return (
         <Button
-            onClick={handleShare}
+            onClick={handleAction}
             disabled={loading || store.results.length === 0}
             size="lg"
-            className="w-full sm:w-auto bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 border-none group relative overflow-hidden"
+            className={`w-full sm:w-auto text-white shadow-lg border-none group relative overflow-hidden ${hasUnlockedPremium
+                    ? "bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 shadow-emerald-500/25"
+                    : "bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 shadow-indigo-500/25"
+                }`}
         >
             <div className="absolute inset-0 bg-white/20 group-hover:translate-x-full transition-transform duration-500 ease-in-out -translate-x-full z-0" />
             <span className="relative z-10 flex items-center">
                 {loading ? (
                     "Processing..."
+                ) : hasUnlockedPremium ? (
+                    <>
+                        <Share2 className="w-4 h-4 mr-2" />
+                        Regenerate Receipt
+                    </>
                 ) : (
                     <>
                         <Lock className="w-4 h-4 mr-2" />
-                        Unlock & Share Breakdown
+                        Unlock Premium & Share
                         <Share2 className="w-4 h-4 ml-2 opacity-70" />
                     </>
                 )}

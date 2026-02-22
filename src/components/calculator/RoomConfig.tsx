@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Slider } from "@/components/ui/slider";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Lock } from "lucide-react";
 import {
     Accordion,
     AccordionContent,
@@ -16,7 +16,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 
 export function RoomConfig() {
-    const { rooms, addRoom, updateRoom, removeRoom, calculateSplit } = useSplitStore();
+    const { rooms, hasUnlockedPremium, addRoom, updateRoom, removeRoom, calculateSplit } = useSplitStore();
 
     const handleUpdate = (updater: () => void) => {
         updater();
@@ -86,56 +86,76 @@ export function RoomConfig() {
                                                 />
                                             </div>
 
-                                            <div className="flex items-center justify-between p-3 rounded-lg bg-slate-900/50 border border-slate-800">
-                                                <Label className="cursor-pointer">Private Bathroom</Label>
+                                            <div className="flex items-center justify-between p-3 rounded-lg bg-slate-900/50 border border-slate-800 opacity-90">
+                                                <Label className={`flex items-center gap-2 ${!hasUnlockedPremium && "text-slate-500"}`}>
+                                                    Private Bathroom
+                                                    {!hasUnlockedPremium && <Lock className="w-3 h-3 text-amber-500" />}
+                                                </Label>
                                                 <Switch
-                                                    checked={room.privateBathroom}
+                                                    disabled={!hasUnlockedPremium}
+                                                    checked={hasUnlockedPremium ? room.privateBathroom : false}
                                                     onCheckedChange={(c) => handleUpdate(() => updateRoom(room.id, { privateBathroom: c }))}
                                                 />
                                             </div>
 
-                                            <div className="flex items-center justify-between p-3 rounded-lg bg-slate-900/50 border border-slate-800">
-                                                <Label className="cursor-pointer">Balcony attached</Label>
+                                            <div className="flex items-center justify-between p-3 rounded-lg bg-slate-900/50 border border-slate-800 opacity-90">
+                                                <Label className={`flex items-center gap-2 ${!hasUnlockedPremium && "text-slate-500"}`}>
+                                                    Balcony attached
+                                                    {!hasUnlockedPremium && <Lock className="w-3 h-3 text-amber-500" />}
+                                                </Label>
                                                 <Switch
-                                                    checked={room.balcony}
+                                                    disabled={!hasUnlockedPremium}
+                                                    checked={hasUnlockedPremium ? room.balcony : false}
                                                     onCheckedChange={(c) => handleUpdate(() => updateRoom(room.id, { balcony: c }))}
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="space-y-6 bg-slate-900/30 p-4 rounded-lg border border-slate-800/50">
-                                            <div className="space-y-3">
+                                            <div className={`space-y-3 ${!hasUnlockedPremium && "opacity-50"}`}>
                                                 <div className="flex justify-between">
-                                                    <Label>Furnishing Level</Label>
-                                                    <span className="text-xs text-slate-400">{room.furnishingLevel}/5</span>
+                                                    <Label className="flex items-center gap-2">
+                                                        Furnishing Level
+                                                        {!hasUnlockedPremium && <Lock className="w-3 h-3 text-amber-500" />}
+                                                    </Label>
+                                                    <span className="text-xs text-slate-400">{hasUnlockedPremium ? room.furnishingLevel : 0}/5</span>
                                                 </div>
                                                 <Slider
+                                                    disabled={!hasUnlockedPremium}
                                                     min={0} max={5} step={1}
-                                                    value={[room.furnishingLevel]}
+                                                    value={[hasUnlockedPremium ? room.furnishingLevel : 0]}
                                                     onValueChange={([val]) => handleUpdate(() => updateRoom(room.id, { furnishingLevel: val }))}
                                                 />
                                             </div>
 
-                                            <div className="space-y-3">
+                                            <div className={`space-y-3 ${!hasUnlockedPremium && "opacity-50"}`}>
                                                 <div className="flex justify-between">
-                                                    <Label>Good View Score</Label>
-                                                    <span className="text-xs text-slate-400">{room.viewScore}/5</span>
+                                                    <Label className="flex items-center gap-2">
+                                                        Good View Score
+                                                        {!hasUnlockedPremium && <Lock className="w-3 h-3 text-amber-500" />}
+                                                    </Label>
+                                                    <span className="text-xs text-slate-400">{hasUnlockedPremium ? room.viewScore : 0}/5</span>
                                                 </div>
                                                 <Slider
+                                                    disabled={!hasUnlockedPremium}
                                                     min={0} max={5} step={1}
-                                                    value={[room.viewScore]}
+                                                    value={[hasUnlockedPremium ? room.viewScore : 0]}
                                                     onValueChange={([val]) => handleUpdate(() => updateRoom(room.id, { viewScore: val }))}
                                                 />
                                             </div>
 
-                                            <div className="space-y-3">
+                                            <div className={`space-y-3 ${!hasUnlockedPremium && "opacity-50"}`}>
                                                 <div className="flex justify-between">
-                                                    <Label>Sunlight Score</Label>
-                                                    <span className="text-xs text-slate-400">{room.sunlightScore}/5</span>
+                                                    <Label className="flex items-center gap-2">
+                                                        Sunlight Score
+                                                        {!hasUnlockedPremium && <Lock className="w-3 h-3 text-amber-500" />}
+                                                    </Label>
+                                                    <span className="text-xs text-slate-400">{hasUnlockedPremium ? room.sunlightScore : 0}/5</span>
                                                 </div>
                                                 <Slider
+                                                    disabled={!hasUnlockedPremium}
                                                     min={0} max={5} step={1}
-                                                    value={[room.sunlightScore]}
+                                                    value={[hasUnlockedPremium ? room.sunlightScore : 0]}
                                                     onValueChange={([val]) => handleUpdate(() => updateRoom(room.id, { sunlightScore: val }))}
                                                 />
                                             </div>

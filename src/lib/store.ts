@@ -35,6 +35,8 @@ interface SplitStoreState {
     commonAreaSize: number;
     equalMaintenanceSplit: boolean;
 
+    hasUnlockedPremium: boolean;
+
     // Weights (Customizable)
     sizeWeight: number;
     bathroomWeight: number;
@@ -53,6 +55,7 @@ interface SplitStoreState {
     setTotalHouseSize: (val: number) => void;
     setCommonAreaSize: (val: number) => void;
     setEqualMaintenanceSplit: (val: boolean) => void;
+    setHasUnlockedPremium: (val: boolean) => void;
 
     addRoom: (room: Room) => void;
     updateRoom: (id: string, updates: Partial<Room>) => void;
@@ -81,6 +84,7 @@ export const useSplitStore = create<SplitStoreState>((set, get) => ({
     totalHouseSize: 0,
     commonAreaSize: 0,
     equalMaintenanceSplit: true,
+    hasUnlockedPremium: false,
 
     sizeWeight: 1,
     bathroomWeight: 500,  // Base flat addition weight
@@ -98,6 +102,7 @@ export const useSplitStore = create<SplitStoreState>((set, get) => ({
     setTotalHouseSize: (v) => set({ totalHouseSize: v }),
     setCommonAreaSize: (v) => set({ commonAreaSize: v }),
     setEqualMaintenanceSplit: (v) => set({ equalMaintenanceSplit: v }),
+    setHasUnlockedPremium: (v) => set({ hasUnlockedPremium: v }),
 
     addRoom: (room) => set((state) => ({ rooms: [...state.rooms, room] })),
     updateRoom: (id, updates) => set((state) => ({
@@ -145,16 +150,23 @@ export const useSplitStore = create<SplitStoreState>((set, get) => ({
         // A room's score is a basis for its relational value vs other rooms
         let totalRoomWeight = 0;
 
+        // Apply Premium Gating: If user hasn't paid, only Size matters.
+        const effectiveBathroomWeight = state.hasUnlockedPremium ? state.bathroomWeight : 0;
+        const effectiveBalconyWeight = state.hasUnlockedPremium ? state.balconyWeight : 0;
+        const effectiveFurnishingWeight = state.hasUnlockedPremium ? state.furnishingWeight : 0;
+        const effectiveViewWeight = state.hasUnlockedPremium ? state.viewWeight : 0;
+        const effectiveSunlightWeight = state.hasUnlockedPremium ? state.sunlightWeight : 0;
+
         // Map rooms to their computed weights
         const roomWeights: Record<string, number> = {};
 
         state.rooms.forEach(room => {
             let weight = (room.roomSize * state.sizeWeight)
-                + (room.privateBathroom ? state.bathroomWeight : 0)
-                + (room.balcony ? state.balconyWeight : 0)
-                + (room.furnishingLevel * state.furnishingWeight)
-                + (room.viewScore * state.viewWeight)
-                + (room.sunlightScore * state.sunlightWeight);
+                + (room.privateBathroom ? effectiveBathroomWeight : 0)
+                + (room.balcony ? effectiveBalconyWeight : 0)
+                + (room.furnishingLevel * effectiveFurnishingWeight)
+                + (room.viewScore * effectiveViewWeight)
+                + (room.sunlightScore * effectiveSunlightWeight);
 
             roomWeights[room.id] = weight;
             totalRoomWeight += weight;
