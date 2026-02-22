@@ -18,66 +18,26 @@ export function ShareButton() {
             return;
         }
 
+        if (hasUnlockedPremium) {
+            toast.info("Premium is already unlocked!");
+            return;
+        }
+
         setLoading(true);
         try {
-            const response = await fetch('/api/split', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    totalRent: store.totalRent,
-                    maintenance: store.maintenance,
-                    commonAreaSize: store.commonAreaSize,
-                    equalMaintenanceSplit: store.equalMaintenanceSplit,
-                    customAmenityWeighting: {
-                        sizeWeight: store.sizeWeight,
-                        bathroomWeight: store.bathroomWeight,
-                        balconyWeight: store.balconyWeight,
-                        furnishingWeight: store.furnishingWeight,
-                        viewWeight: store.viewWeight,
-                        sunlightWeight: store.sunlightWeight,
-                    },
-                    roommates: store.roommates,
-                    rooms: store.rooms,
-                })
-            });
+            // Simulate Payment flow opening locally
+            toast.loading("Processing mockup payment...", { id: "payment" });
 
-            if (!response.ok) throw new Error("Failed to save");
+            // Mock network latency for the payment simulator
+            await new Promise((resolve) => setTimeout(resolve, 1500));
 
-            const data = await response.json();
-
-            // Simulate Payment flow opening
-            toast.loading("Processing payment...", { id: "payment" });
-
-            // Mock payment success
-            const paymentResponse = await fetch('/api/payment', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ sessionId: data.id })
-            });
-
-            if (paymentResponse.ok) {
-                setHasUnlockedPremium(true);
-                // Trigger a sync recalculation now that it's unlocked so they see values apply before redirecting
-                store.calculateSplit();
-                toast.success("Payment successful! Premium Modifiers unlocked.", { id: "payment" });
-                toast.info("Your permanent digital receipt has been generated.", {
-                    description: `${window.location.origin}/split/${data.shareSlug}`,
-                    duration: 10000,
-                    action: {
-                        label: "Copy Link",
-                        onClick: () => {
-                            navigator.clipboard.writeText(`${window.location.origin}/split/${data.shareSlug}`);
-                            toast.success("Link copied to clipboard!");
-                        }
-                    }
-                });
-            }
-
+            setHasUnlockedPremium(true);
+            // Trigger a sync recalculation now that it's unlocked
+            store.calculateSplit();
+            toast.success("Payment successful! Premium Modifiers unlocked.", { id: "payment" });
         } catch (error) {
             console.error(error);
-            toast.error("Error generating shareable link.", { id: "payment" });
+            toast.error("Error unlocking premium.", { id: "payment" });
         } finally {
             setLoading(false);
         }
@@ -99,14 +59,13 @@ export function ShareButton() {
                     "Processing..."
                 ) : hasUnlockedPremium ? (
                     <>
-                        <Share2 className="w-4 h-4 mr-2" />
-                        Regenerate Receipt
+                        <Lock className="w-4 h-4 mr-2 opacity-50" />
+                        Premium Unlocked
                     </>
                 ) : (
                     <>
                         <Lock className="w-4 h-4 mr-2" />
-                        Unlock Premium & Share
-                        <Share2 className="w-4 h-4 ml-2 opacity-70" />
+                        Unlock Premium Modifiers
                     </>
                 )}
             </span>
