@@ -17,7 +17,7 @@ export function RoommateConfig() {
 
     const createNewRoommate = () => {
         const newRm: Roommate = {
-            id: crypto.randomUUID(),
+            id: Math.random().toString(36).substring(2, 9),
             name: `Roommate ${roommates.length + 1}`,
             roomId: null, // Unassigned by default
         };

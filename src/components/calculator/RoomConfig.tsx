@@ -25,7 +25,7 @@ export function RoomConfig() {
 
     const createNewRoom = () => {
         const newRoom: Room = {
-            id: crypto.randomUUID(),
+            id: Math.random().toString(36).substring(2, 9),
             roomName: `Room ${rooms.length + 1}`,
             roomSize: 0,
             privateBathroom: false,
