@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model SplitSession {
+  id                    String     @id @default(cuid())
+  shareSlug             String     @unique @default(uuid())
+  totalRent             Float
+  maintenance           Float
+  commonAreaSize        Float
+  equalMaintenanceSplit Boolean    @default(true)
+  customAmenityWeighting String    // JSON stringified weights
+  createdAt             DateTime   @default(now())
+  paid                  Boolean    @default(false)
+
+  roommates             Roommate[]
+  rooms                 Room[]
+}
+
+model Roommate {
+  id             String       @id @default(cuid())
+  splitSessionId String
+  name           String
+  
+  splitSession   SplitSession @relation(fields: [splitSessionId], references: [id], onDelete: Cascade)
+  roomId         String?
+  room           Room?        @relation(fields: [roomId], references: [id], onDelete: SetNull)
+}
+
+model Room {
+  id              String       @id @default(cuid())
+  splitSessionId  String
+  roomName        String
+  roomSize        Float
+  privateBathroom Boolean      @default(false)
+  balcony         Boolean      @default(false)
+  furnishingLevel Int          @default(0) // 0-5
+  floorPreference Int          @default(0) // 0-5
+  sunlightScore   Int          @default(0) // 0-5
+
+  splitSession    SplitSession @relation(fields: [splitSessionId], references: [id], onDelete: Cascade)
+  roommates       Roommate[]
+}
