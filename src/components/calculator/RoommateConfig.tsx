@@ -41,17 +41,17 @@ export function RoommateConfig() {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95 }}
-                            className="flex flex-col md:flex-row gap-4 p-4 rounded-lg bg-black/40 border border-slate-800 backdrop-blur-md items-center"
+                            className="flex flex-col md:flex-row gap-4 lg:gap-8 p-4 lg:p-6 rounded-lg bg-black/40 border border-slate-800 backdrop-blur-md items-center"
                         >
                             <div className="flex items-center gap-3 w-full md:w-auto md:flex-1">
-                                <div className="bg-slate-800 p-2 rounded-full">
+                                <div className="bg-slate-800 p-2 rounded-full hidden md:block">
                                     <User className="w-5 h-5 text-emerald-400" />
                                 </div>
                                 <div className="flex-1">
                                     <Input
                                         value={rm.name}
                                         onChange={(e) => handleUpdate(() => updateRoommate(rm.id, { name: e.target.value }))}
-                                        className="bg-slate-900/50 border-slate-700 h-9 font-medium"
+                                        className="bg-slate-900/50 border-slate-700 h-10 lg:h-12 lg:text-lg font-medium"
                                         placeholder="Name"
                                     />
                                 </div>
@@ -60,7 +60,7 @@ export function RoommateConfig() {
                             <div className="flex items-center gap-3 w-full md:w-auto md:flex-1">
                                 <div className="flex-1 w-full">
                                     <select
-                                        className="flex h-9 w-full items-center justify-between whitespace-nowrap rounded-md border border-slate-700 bg-slate-900/50 px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+                                        className="flex h-10 lg:h-12 w-full lg:text-base items-center justify-between whitespace-nowrap rounded-md border border-slate-700 bg-slate-900/50 px-4 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
                                         value={rm.roomId || ""}
                                         onChange={(e) => handleUpdate(() => updateRoommate(rm.id, { roomId: e.target.value || null }))}
                                     >
@@ -77,9 +77,9 @@ export function RoommateConfig() {
                                     variant="ghost"
                                     size="icon"
                                     onClick={() => handleUpdate(() => removeRoommate(rm.id))}
-                                    className="text-red-400 hover:text-red-300 hover:bg-red-500/20"
+                                    className="text-red-400 hover:text-red-300 hover:bg-red-500/20 lg:h-12 lg:w-12 h-10 w-10 ml-2"
                                 >
-                                    <Trash2 className="w-4 h-4" />
+                                    <Trash2 className="w-5 h-5" />
                                 </Button>
                             </div>
                         </motion.div>

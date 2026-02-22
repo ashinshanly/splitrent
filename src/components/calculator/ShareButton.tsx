@@ -34,7 +34,7 @@ export function ShareButton() {
                         bathroomWeight: store.bathroomWeight,
                         balconyWeight: store.balconyWeight,
                         furnishingWeight: store.furnishingWeight,
-                        floorWeight: store.floorWeight,
+                        viewWeight: store.viewWeight,
                         sunlightWeight: store.sunlightWeight,
                     },
                     roommates: store.roommates,

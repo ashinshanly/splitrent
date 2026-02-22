@@ -51,7 +51,7 @@ export function ResultsVisualization() {
                 </CardHeader>
                 <CardContent>
 
-                    <div className="h-72 w-full mt-4">
+                    <div className="h-72 lg:h-96 w-full mt-4">
                         <ResponsiveContainer width="100%" height="100%">
                             <BarChart data={chartData} layout="vertical" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                                 <XAxis type="number" stroke="#475569" tick={{ fill: '#94a3b8' }} />

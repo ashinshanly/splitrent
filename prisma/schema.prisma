@@ -40,7 +40,7 @@ model Room {
   privateBathroom Boolean      @default(false)
   balcony         Boolean      @default(false)
   furnishingLevel Int          @default(0) // 0-5
-  floorPreference Int          @default(0) // 0-5
+  viewScore       Int          @default(0) // 0-5
   sunlightScore   Int          @default(0) // 0-5
 
   splitSession    SplitSession @relation(fields: [splitSessionId], references: [id], onDelete: Cascade)

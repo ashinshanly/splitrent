@@ -30,7 +30,7 @@ export async function POST(req: Request) {
                         privateBathroom: room.privateBathroom,
                         balcony: room.balcony,
                         furnishingLevel: room.furnishingLevel,
-                        floorPreference: room.floorPreference,
+                        viewScore: room.viewScore,
                         sunlightScore: room.sunlightScore,
                     }))
                 }

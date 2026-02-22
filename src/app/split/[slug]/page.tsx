@@ -58,7 +58,7 @@ export default async function ShareView({ params }: { params: { slug: string } }
                             // In production, the `SplitResult` should be saved to the DB during the POST /api/split to avoid recalculating.
                             const assignedRoom = session.rooms.find((r: any) => r.id === rm.roomId);
                             return (
-                                <div key={rm.id} className="bg-black/40 p-5 rounded-xl border border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                                <div key={rm.id} className="bg-black/40 p-5 lg:p-6 lg:px-8 rounded-xl border border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 lg:gap-6">
                                     <div className="flex-1">
                                         <h3 className="text-xl font-bold text-slate-200">{rm.name}</h3>
                                         <p className="text-slate-400 text-sm mt-1">

@@ -23,9 +23,9 @@ export default function Home() {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Configuration Column */}
-          <div className="xl:col-span-5 space-y-8">
+          <div className="lg:col-span-5 space-y-8">
             <GlobalConfig />
             <div className="bg-slate-900/40 p-6 rounded-2xl border border-slate-800/80 backdrop-blur-sm shadow-xl">
               <RoomConfig />
@@ -40,8 +40,8 @@ export default function Home() {
           </div>
 
           {/* Visualization Column */}
-          <div className="xl:col-span-7 space-y-8">
-            <div className="sticky top-8">
+          <div className="lg:col-span-7 space-y-8">
+            <div className="sticky top-8 lg:top-12">
               <ResultsVisualization />
             </div>
           </div>

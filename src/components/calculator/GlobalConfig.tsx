@@ -30,15 +30,15 @@ export function GlobalConfig() {
 
     return (
         <Card className="bg-black/40 border-slate-800 backdrop-blur-md shadow-2xl">
-            <CardHeader>
-                <CardTitle className="text-xl font-semibold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
+            <CardHeader className="lg:pb-6">
+                <CardTitle className="text-xl lg:text-2xl font-semibold bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">
                     House Settings
                 </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                        <Label htmlFor="totalRent">Total Monthly Rent</Label>
+            <CardContent className="space-y-4 lg:space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+                    <div className="space-y-2 lg:space-y-3">
+                        <Label htmlFor="totalRent" className="lg:text-base">Total Monthly Rent</Label>
                         <Input
                             id="totalRent"
                             type="number"
@@ -46,11 +46,11 @@ export function GlobalConfig() {
                             placeholder="e.g. 50000"
                             value={totalRent || ""}
                             onChange={(e) => handleUpdate(() => setTotalRent(Number(e.target.value)))}
-                            className="bg-slate-900/50 border-slate-700"
+                            className="bg-slate-900/50 border-slate-700 lg:h-12 lg:text-lg"
                         />
                     </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="maintenance">Monthly Maintenance</Label>
+                    <div className="space-y-2 lg:space-y-3">
+                        <Label htmlFor="maintenance" className="lg:text-base">Monthly Maintenance</Label>
                         <Input
                             id="maintenance"
                             type="number"
@@ -58,11 +58,11 @@ export function GlobalConfig() {
                             placeholder="e.g. 5000"
                             value={maintenance || ""}
                             onChange={(e) => handleUpdate(() => setMaintenance(Number(e.target.value)))}
-                            className="bg-slate-900/50 border-slate-700"
+                            className="bg-slate-900/50 border-slate-700 lg:h-12 lg:text-lg"
                         />
                     </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="totalHouseSize">Total House Size (sq ft)</Label>
+                    <div className="space-y-2 lg:space-y-3">
+                        <Label htmlFor="totalHouseSize" className="lg:text-base">Total House Size (sq ft)</Label>
                         <Input
                             id="totalHouseSize"
                             type="number"
@@ -70,11 +70,11 @@ export function GlobalConfig() {
                             placeholder="e.g. 1500"
                             value={totalHouseSize || ""}
                             onChange={(e) => handleUpdate(() => setTotalHouseSize(Number(e.target.value)))}
-                            className="bg-slate-900/50 border-slate-700"
+                            className="bg-slate-900/50 border-slate-700 lg:h-12 lg:text-lg"
                         />
                     </div>
-                    <div className="space-y-2">
-                        <Label htmlFor="commonAreaSize">Common Area Size (sq ft)</Label>
+                    <div className="space-y-2 lg:space-y-3">
+                        <Label htmlFor="commonAreaSize" className="lg:text-base">Common Area Size (sq ft)</Label>
                         <Input
                             id="commonAreaSize"
                             type="number"
@@ -82,7 +82,7 @@ export function GlobalConfig() {
                             placeholder="e.g. 500"
                             value={commonAreaSize || ""}
                             onChange={(e) => handleUpdate(() => setCommonAreaSize(Number(e.target.value)))}
-                            className="bg-slate-900/50 border-slate-700"
+                            className="bg-slate-900/50 border-slate-700 lg:h-12 lg:text-lg"
                         />
                     </div>
                 </div>

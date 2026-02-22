@@ -31,7 +31,7 @@ export function RoomConfig() {
             privateBathroom: false,
             balcony: false,
             furnishingLevel: 0,
-            floorPreference: 0,
+            viewScore: 0,
             sunlightScore: 0,
         };
         handleUpdate(() => addRoom(newRoom));
@@ -118,13 +118,13 @@ export function RoomConfig() {
 
                                             <div className="space-y-3">
                                                 <div className="flex justify-between">
-                                                    <Label>Floor Preference Score</Label>
-                                                    <span className="text-xs text-slate-400">{room.floorPreference}/5</span>
+                                                    <Label>Good View Score</Label>
+                                                    <span className="text-xs text-slate-400">{room.viewScore}/5</span>
                                                 </div>
                                                 <Slider
                                                     min={0} max={5} step={1}
-                                                    value={[room.floorPreference]}
-                                                    onValueChange={([val]) => handleUpdate(() => updateRoom(room.id, { floorPreference: val }))}
+                                                    value={[room.viewScore]}
+                                                    onValueChange={([val]) => handleUpdate(() => updateRoom(room.id, { viewScore: val }))}
                                                 />
                                             </div>
 

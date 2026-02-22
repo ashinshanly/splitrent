@@ -7,7 +7,7 @@ export interface Room {
     privateBathroom: boolean;
     balcony: boolean;
     furnishingLevel: number;
-    floorPreference: number;
+    viewScore: number;
     sunlightScore: number;
 }
 
@@ -40,7 +40,7 @@ interface SplitStoreState {
     bathroomWeight: number;
     balconyWeight: number;
     furnishingWeight: number; // multiplier per level
-    floorWeight: number;      // multiplier per level
+    viewWeight: number;      // multiplier per level
     sunlightWeight: number;   // multiplier per level
 
     rooms: Room[];
@@ -86,7 +86,7 @@ export const useSplitStore = create<SplitStoreState>((set, get) => ({
     bathroomWeight: 500,  // Base flat addition weight
     balconyWeight: 300,   // Base flat addition weight
     furnishingWeight: 100, // per level 1-5
-    floorWeight: 50,      // per level 1-5
+    viewWeight: 50,      // per level 1-5
     sunlightWeight: 50,   // per level 1-5
 
     rooms: [],
@@ -153,7 +153,7 @@ export const useSplitStore = create<SplitStoreState>((set, get) => ({
                 + (room.privateBathroom ? state.bathroomWeight : 0)
                 + (room.balcony ? state.balconyWeight : 0)
                 + (room.furnishingLevel * state.furnishingWeight)
-                + (room.floorPreference * state.floorWeight)
+                + (room.viewScore * state.viewWeight)
                 + (room.sunlightScore * state.sunlightWeight);
 
             roomWeights[room.id] = weight;
